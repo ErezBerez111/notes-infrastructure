@@ -4,6 +4,7 @@
 #
 
 resource "helm_release" "jenkins" {
+  count            = var.create_eks_cluster ? 1 : 0
   name             = "jenkins"
   repository       = "https://charts.jenkins.io"
   chart            = "jenkins"

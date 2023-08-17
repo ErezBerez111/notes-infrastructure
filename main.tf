@@ -40,6 +40,8 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.16.0"
 
+  count = var.create_eks_cluster ? 1 : 0
+
   cluster_name                   = local.name
   cluster_version                = local.cluster_version
   cluster_endpoint_public_access = true
@@ -240,12 +242,14 @@ module "vpc_cni_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.0"
 
+  count = var.create_eks_cluster ? 1 : 0
+
   role_name_prefix      = "VPC-CNI-IRSA"
   attach_vpc_cni_policy = true
 
   oidc_providers = {
     main = {
-      provider_arn               = module.eks.oidc_provider_arn
+      provider_arn               = module.eks[0].oidc_provider_arn
       namespace_service_accounts = ["kube-system:aws-node"]
     }
   }
