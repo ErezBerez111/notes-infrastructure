@@ -15,8 +15,9 @@ terraform {
   }
 }
 
+#in order to auth with aws and enables to interact with the cloud in a declarative way
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-central-1"
 }
 
 data "aws_eks_cluster_auth" "cluster" {
@@ -27,14 +28,14 @@ data "aws_eks_cluster_auth" "cluster" {
 
 provider "kubernetes" {
   host                   = module.eks[0].cluster_endpoint
-  cluster_ca_certificate = module.eks[0].cluster_certificate_authority_data
+  cluster_ca_certificate = base64decode(module.eks[0].cluster_certificate_authority_data) 
   token                  = try(data.aws_eks_cluster_auth.cluster[0].token, "")
 }
 
 provider "helm" {
   kubernetes {
     host                   = module.eks[0].cluster_endpoint
-    cluster_ca_certificate = module.eks[0].cluster_certificate_authority_data
+    cluster_ca_certificate = base64decode(module.eks[0].cluster_certificate_authority_data)
     token                  = try(data.aws_eks_cluster_auth.cluster[0].token, "")
   }
 }

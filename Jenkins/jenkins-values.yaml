@@ -3,7 +3,6 @@
 #
 controller:
   additionalPlugins:
-    - git:5.2.0
     - blueocean-web
     - blueocean-dashboard
     - blueocean

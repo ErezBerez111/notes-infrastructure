@@ -1,5 +1,5 @@
 variable "project_name" {
-  default = "ort"
+  default = "Bikini-Bottom"
   type    = string
 }
 

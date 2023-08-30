@@ -20,6 +20,10 @@ module "vpc" {
   enable_vpn_gateway = false
   single_nat_gateway = true
 
+  # enable_dns_support   = true#
+  # enable_dns_hostnames = true#
+
+
   public_subnet_tags = {
     "kubernetes.io/role/elb" = 1
   }
@@ -177,7 +181,7 @@ module "eks" {
 
       capacity_type        = "SPOT"
       force_update_version = true
-      instance_types       = ["m6i.large", "m5.large", "m5n.large", "m5zn.large"]
+      instance_types       = ["t3.medium"]
       labels = {
         project = var.project_name
       }
