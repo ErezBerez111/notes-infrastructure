@@ -1,9 +1,0 @@
-# configure jenkins values for kubernetes
-#
-#
-controller:
-  additionalPlugins:
-    - blueocean-web
-    - blueocean-dashboard
-    - blueocean
-    - blueocean-bitbucket-pipeline

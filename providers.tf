@@ -39,3 +39,12 @@ provider "helm" {
     token                  = try(data.aws_eks_cluster_auth.cluster[0].token, "")
   }
 }
+
+# provider "argocd" {
+#   host                   = module.eks[0].cluster_endpoint
+#   cluster_ca_certificate = base64decode(module.eks[0].cluster_certificate_authority_data) 
+#   token                  = try(data.aws_eks_cluster_auth.cluster[0].token, "")
+# }
+
+# resource "argocd_application" "notes-argo-application" {
+# }
